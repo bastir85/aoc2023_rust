@@ -25,13 +25,13 @@ fn findNumber(line:String)-> Option<char>{
         } else {
             substr.push(chr);
             for (a, b) in LOOKUP{
-                if substr.find(a).is_some(){
+                if substr.contains(a){
                     return Some(b);
                 }
             }
         }
     }
-    return None
+    None
 }
 
 fn findNumberR(line:String)-> Option<char>{
@@ -48,7 +48,7 @@ fn findNumberR(line:String)-> Option<char>{
             }
         }
     }
-    return None
+    None
 }
 fn main() ->  Result<(), Error> {
     let mut result:u16 = 0;

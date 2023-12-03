@@ -8,9 +8,9 @@ struct Game{
 impl PartialOrd for Game {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         if self.red > other.red || self.green > other.green || self.blue > other.blue {
-            return Some(Ordering::Greater);
+            Some(Ordering::Greater)
         } else {
-            return  Some(Ordering::Less);
+            Some(Ordering::Less)
         }
     }
 }
@@ -134,9 +134,9 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
     let mut answer2:u16 = 0;
 
     for line in TEXT.lines(){
-        let (name, rounds) =  line.split_once(":").unwrap();
+        let (name, rounds) =  line.split_once(':').unwrap();
             let mut total = Game {red:0, green:0, blue:0};
-            let (_, index) = name.trim().split_once(" ").unwrap();
+            let (_, index) = name.trim().split_once(' ').unwrap();
             let index:u8 = index.parse().unwrap();
             for round in rounds.split(';'){
                 for color in round.split(','){

@@ -1,10 +1,9 @@
-use core::num;
+
 use regex::Regex;
 use std::{
     cmp::min,
     fs::File,
     io::{BufRead, BufReader},
-    ops::{Range, RangeBounds},
     vec,
 };
 
@@ -27,7 +26,7 @@ fn get_lines(is_test: bool) -> Box<dyn Iterator<Item = String>> {
     } else {
         let file: File = File::open(FILE_PATH).unwrap();
         let reader = BufReader::new(file);
-        return Box::new(reader.lines().map(|line| line.unwrap().to_string()));
+        Box::new(reader.lines().map(|line| line.unwrap().to_string()))
     }
 }
 
@@ -58,15 +57,15 @@ impl Grid {
         let size_x = data[0].len();
         let size_y = data.len();
         let mut grid = Grid {
-            data: data,
-            size_x: size_x,
-            size_y: size_y,
-            mask: mask,
+            data,
+            size_x,
+            size_y,
+            mask,
             numbers: Vec::new(),
         };
         grid.create_symbol_mask();
         grid.find_numbers();
-        return grid;
+        grid
     }
 
     pub fn create_symbol_mask(&mut self) {
@@ -109,14 +108,14 @@ impl Grid {
                         value: num,
                         x_start: c.start(),
                         x_stop: c.end() - 1,
-                        y: y,
+                        y,
                     });
                 }
             }
         }
     }
 
-    fn get_valid_numbers(&mut self) -> Vec<i16> {
+    fn get_valid_numbers(&self) -> Vec<i16> {
         let mut valid_numbers = Vec::new();
         for number in &self.numbers {
             if self.mask[number.y][number.x_start..number.x_stop + 1]
@@ -132,10 +131,10 @@ impl Grid {
             }
         }
 
-        return valid_numbers;
+        valid_numbers
     }
 
-    pub fn get_gears(&mut self) -> i64 {
+    pub fn get_gears(&self) -> i64 {
         let mut result: i64 = 0;
         for y in 0..self.size_y {
             for x in 0..self.size_x {
@@ -150,11 +149,11 @@ impl Grid {
                 }
             }
         }
-        return result;
+        result
     }
 
-    fn find_adjacent_numbers(&mut self, x: usize, y: usize) -> Vec<i16> {
-        let mut adjacent_numbers: Vec<i32> = Vec::new();
+    fn find_adjacent_numbers(&self, x: usize, y: usize) -> Vec<i16> {
+        let _adjacent_numbers: Vec<i32> = Vec::new();
         return self
             .numbers
             .iter()
@@ -177,7 +176,7 @@ impl Grid {
 }
 
 fn main() {
-    let mut grid = Grid::new(get_lines(false));
+    let grid = Grid::new(get_lines(false));
 
     let results = grid.get_valid_numbers();
     let result2 = grid.get_gears();
