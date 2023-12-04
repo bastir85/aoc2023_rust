@@ -1,4 +1,4 @@
-use std::{io::{BufReader, BufRead}, fs::File, cmp::{min, max}, iter::Sum};
+use std::{io::{BufReader, BufRead}, fs::File, cmp::{min}, iter::Sum};
 
 const FILE_PATH: &str = "/workspaces/rust/hello_cargo/dat/task4.txt";
 const TEXT: &str = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -20,17 +20,17 @@ fn get_lines(is_test: bool) -> Box<dyn Iterator<Item = String>> {
 
 fn extract_numbers(data: &str) -> Vec<i16>{
     let mut numbers: Vec<i16> = Vec::new();
-    for d in data.trim().split_whitespace(){
+    for d in data.split_whitespace(){
         numbers.push(d.parse().unwrap());
     }
-    return numbers;
+    numbers
 }
 fn main(){
     let mut result = 0;
     let mut points = Vec::new();
     for line in get_lines(false){
-        let (name, data) = line.split_once(":").unwrap();
-        let (winning, game) = data.split_once("|").unwrap();
+        let (name, data) = line.split_once(':').unwrap();
+        let (winning, game) = data.split_once('|').unwrap();
         let winning = extract_numbers(winning);
         let game = extract_numbers(game);
 
