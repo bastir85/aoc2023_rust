@@ -109,7 +109,7 @@ fn main() {
         }
         let size_x = map[0].len() as u8;
         let size_y = map.len() as u8;
-        for i in map.iter(){println!("{:?}",i);}
+        //for i in map.iter(){println!("{:?}",i);}
         let mut map2 = map.clone();
         let mut res : i64 = 0;
         let  ( mut startA, mut startB) = find_starts(start.0,start.1,&map,&navi,size_x,size_y);
@@ -137,51 +137,51 @@ fn main() {
         loop{
             if map[startA.1 as usize][startA.0 as usize] == '|'{
                 if startA.1 as i16 - startA.3 as i16 > 0 { //going to higer y
-                    left &= mark_x(startA,'L',1,& mut map2,size_x,size_y);
-                    right&= mark_x(startA,'R',-1,& mut map2,size_x,size_y);
+                    left &= mark_x(startA,'l',1,& mut map2,size_x,size_y);
+                    right&= mark_x(startA,'r',-1,& mut map2,size_x,size_y);
                 }else{
-                    left &= mark_x(startA,'L',-1,& mut map2,size_x,size_y);
-                    right&= mark_x(startA,'R',1,& mut map2,size_x,size_y);
+                    left &= mark_x(startA,'l',-1,& mut map2,size_x,size_y);
+                    right&= mark_x(startA,'r',1,& mut map2,size_x,size_y);
                 }
             }else if map[startA.1 as usize][startA.0 as usize] == '-'{
                 if startA.0 as i16 - startA.2 as i16 > 0 { //going to higer x
-                    right&= mark_y(startA,'R',1,& mut map2,size_x,size_y);
-                    left &= mark_y(startA,'L',-1,& mut map2,size_x,size_y);
+                    right&= mark_y(startA,'r',1,& mut map2,size_x,size_y);
+                    left &= mark_y(startA,'l',-1,& mut map2,size_x,size_y);
                 }else{
-                    right&= mark_y(startA,'R',-1,& mut map2,size_x,size_y);
-                    left &= mark_y(startA,'L',1,& mut map2,size_x,size_y);
+                    right&= mark_y(startA,'r',-1,& mut map2,size_x,size_y);
+                    left &= mark_y(startA,'l',1,& mut map2,size_x,size_y);
                 }
             }else if map[startA.1 as usize][startA.0 as usize] == 'F'{
                 if startA.1 as i16 != startA.3 as i16 { 
-                    left &= mark_x(startA,'L',-1,& mut map2,size_x,size_y);
-                    left &= mark_y(startA,'L',-1,& mut map2,size_x,size_y);
+                    left &= mark_x(startA,'l',-1,& mut map2,size_x,size_y);
+                    left &= mark_y(startA,'l',-1,& mut map2,size_x,size_y);
                 }else{
-                    right &= mark_x(startA,'R',-1,& mut map2,size_x,size_y);
-                    right &= mark_y(startA,'R',-1,& mut map2,size_x,size_y);
+                    right &= mark_x(startA,'r',-1,& mut map2,size_x,size_y);
+                    right &= mark_y(startA,'r',-1,& mut map2,size_x,size_y);
                 }
             }else if map[startA.1 as usize][startA.0 as usize] == '7'{
                 if startA.0 as i16 != startA.2 as i16  { 
-                    left &= mark_x(startA,'L',1,& mut map2,size_x,size_y);
-                    left &= mark_y(startA,'L',-1,& mut map2,size_x,size_y);
+                    left &= mark_x(startA,'l',1,& mut map2,size_x,size_y);
+                    left &= mark_y(startA,'l',-1,& mut map2,size_x,size_y);
                 }else{
-                    right &= mark_x(startA,'R',1,& mut map2,size_x,size_y);
-                    right &= mark_y(startA,'R',-1,& mut map2,size_x,size_y);
+                    right &= mark_x(startA,'r',1,& mut map2,size_x,size_y);
+                    right &= mark_y(startA,'r',-1,& mut map2,size_x,size_y);
                 }
             }else if map[startA.1 as usize][startA.0 as usize] == 'J'{
                 if startA.1 as i16 != startA.3 as i16  { 
-                    left &= mark_x(startA,'L',1,& mut map2,size_x,size_y);
-                    left &= mark_y(startA,'L',1,& mut map2,size_x,size_y);
+                    left &= mark_x(startA,'l',1,& mut map2,size_x,size_y);
+                    left &= mark_y(startA,'l',1,& mut map2,size_x,size_y);
                 }else{
-                    right &= mark_x(startA,'R',1,& mut map2,size_x,size_y);
-                    right &= mark_y(startA,'R',1,& mut map2,size_x,size_y);
+                    right &= mark_x(startA,'r',1,& mut map2,size_x,size_y);
+                    right &= mark_y(startA,'r',1,& mut map2,size_x,size_y);
                 }
             }else if map[startA.1 as usize][startA.0 as usize] == 'L'{
                 if startA.0 as i16 != startA.2 as i16  { 
-                    left &= mark_x(startA,'L',-1,& mut map2,size_x,size_y);
-                    left &= mark_y(startA,'L',1,& mut map2,size_x,size_y);
+                    left &= mark_x(startA,'l',-1,& mut map2,size_x,size_y);
+                    left &= mark_y(startA,'l',1,& mut map2,size_x,size_y);
                 }else{
-                    right &= mark_x(startA,'R',-1,& mut map2,size_x,size_y);
-                    right &= mark_y(startA,'R',1,& mut map2,size_x,size_y);
+                    right &= mark_x(startA,'r',-1,& mut map2,size_x,size_y);
+                    right &= mark_y(startA,'r',1,& mut map2,size_x,size_y);
                 }
             }
             startA = go_step(startA,&map,&navi);
@@ -189,8 +189,8 @@ fn main() {
         }
         
         println!("right {} left {}",right,left);
-        let pattter = if right {'R'} else {'L'};
-        let pattter2 = if !right {'R'} else {'L'};
+        let pattter = if right {'r'} else {'l'};
+        let pattter2 = if !right {'r'} else {'l'};
         res = 0;
         for (y,tmp) in map2.iter().enumerate(){
             for (x,c) in tmp.iter().enumerate(){
@@ -203,7 +203,7 @@ fn main() {
                 }
             }
         }
-        for i in map.iter(){println!("{:?}",i.into_iter().collect::<String>());}
+        for i in map2.iter(){println!("{:?}",i.into_iter().collect::<String>());}
         println!("res {} ",res);
     }else{
         println!("file not found");
