@@ -63,7 +63,7 @@ fn main() {
     for y in 0..height{
         for x in 0..width{
             if grid[y][x] == '#'{
-                galaxies.push((y,x));
+                galaxies.push((y ,x));
             }
         }
     }
@@ -77,7 +77,39 @@ fn main() {
         }
     }
     println!("{:?}", total);
-
     println!("{} {}", grid.len(), grid[0].len());
+
+    galaxies.clear();
+    for (y,tmp) in grid2.iter().enumerate(){
+        for (x,c) in tmp.iter().enumerate(){
+            if grid2[y][x] == '#'{
+                galaxies.push((y ,x));
+            }
+        }
+    }
+     
+    let mut total = 0;
+    for (idxA, galaxieA) in galaxies.iter().enumerate(){
+        for (idxB, galaxieB) in galaxies[idxA+1..].iter().enumerate(){
+            let dist = galaxieA.0.abs_diff(galaxieB.0) + galaxieA.1.abs_diff(galaxieB.1);
+            //0 y, 1 x
+            let mut jumps = 0;
+            if galaxieA.0 < galaxieB.0{
+                jumps += y_inserts.iter().filter(|&&y| galaxieA.0<y && y<galaxieB.0 ).count()
+            }else{
+                jumps += y_inserts.iter().filter(|&&y| galaxieB.0<y && y<galaxieA.0 ).count()
+            }
+            if galaxieA.1 < galaxieB.1{
+                jumps += x_inserts.iter().filter(|&&x| galaxieA.1<x && x<galaxieB.1 ).count()
+            }else{
+                jumps += x_inserts.iter().filter(|&&x| galaxieB.1<x && x<galaxieA.1 ).count()
+            }
+            
+            total += dist + 999999* jumps  ;
+
+        }
+    }
+    println!("{:?}", total);
+    println!("{} {}", grid2.len(), grid2[0].len());
 
 }
