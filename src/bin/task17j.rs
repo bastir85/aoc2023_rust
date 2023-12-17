@@ -132,7 +132,9 @@ fn follow_p2(mut p : Path , path : & mut Vec<(i32,i32)>, grid : & mut  Vec<Vec<u
     }
     path.push((p.x,p.y));
     p.cost += grid[p.y as usize][p.x as usize] as i32;
-    if i<3 {continue;}
+    if i<3 {
+        continue;
+    }
 
     let g_c = &mut gridc[p.y as usize][p.x as usize];
     let mut abort = 0;
@@ -143,6 +145,7 @@ fn follow_p2(mut p : Path , path : & mut Vec<(i32,i32)>, grid : & mut  Vec<Vec<u
     if p.dy==-1 { if p.cost < g_c.costs[j]  { g_c.costs[j] = p.cost; } else {abort +=1;} }
     }
     if abort==p2_N0-i {return;}
+    
     if p.x == width -1 && p.y == height -1{
         if p.cost < 999 && false{
         println!("f {:?}",p);
@@ -218,6 +221,9 @@ fn main() {
     let p = Path { x: 0, y: 0, dx: 1, dy: 0, cost: 0 };
     let mut path : Vec<(i32,i32)> = Vec::new();
     follow(p,&mut path, &mut grid, &mut gridc, height, width);
+    let p = Path { x: 0, y: 0, dx: 0, dy: -1, cost: 0 };
+    let mut path : Vec<(i32,i32)> = Vec::new();
+    follow(p,&mut path, &mut grid, &mut gridc, height, width);
     //for i in gridc.iter(){println!("{:?}",i.iter().map(|x| x.coste).collect::<Vec<i32>>());}
     //for i in gridc.iter(){println!("{:?}",i);}
     let fc = gridc[height as usize -1][width as usize - 1];
@@ -238,6 +244,9 @@ fn main() {
     //for i in grid.iter(){println!("{:?}",i);}
     println!("");
     let p = Path { x: 0, y: 0, dx: 1, dy: 0, cost: 0 };
+    let mut path : Vec<(i32,i32)> = Vec::new();
+    follow_p2(p,&mut path, &mut grid, &mut gridc2, height, width);
+    let p = Path { x: 0, y: 0, dx: 0, dy: -1, cost: 0 };
     let mut path : Vec<(i32,i32)> = Vec::new();
     follow_p2(p,&mut path, &mut grid, &mut gridc2, height, width);
     //for i in gridc.iter(){println!("{:?}",i.iter().map(|x| x.coste).collect::<Vec<i32>>());}
